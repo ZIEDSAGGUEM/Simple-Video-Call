@@ -20,8 +20,7 @@ function VideoCall() {
   const myVideo = useRef(null);
 
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then((stream) => {
         setStream(stream);
         if (myVideo.current) {
@@ -105,34 +104,19 @@ function VideoCall() {
 
   return (
     <div>
-      <div
-        className="d-flex flex-row justify-content-center gap-3"
-        style={{ height: "100vh" }}
-      >
+      <div className="flex flex-row h-full w-full justify-center gap-[15%] h-screen z-">
         <div>
-          <div
-            className="d-flex flex-column align-items-center justify-content-center"
-            style={{ height: "90vh" }}
-          >
-            <span
-              className="d-block text-white font-weight-bold"
-              style={{ fontSize: "24px", marginBottom: "1rem" }}
-            >
-              Basic React JS video calling
+          <div className="flex-grow flex flex-col items-center justify-center h-[90%]">
+            <span className="text-white font-bold text-3xl mb-4">Basic React JS video calling</span>
+            <span className="text-white font-bold text-md mb-4 text-center underline">
+              Copy your ID and anyone using the same server can use it to call you and vice versa!
             </span>
-            <span
-              className="d-block text-white font-weight-bold text-center mb-4"
-              style={{ fontSize: "18px", textDecoration: "underline" }}
-            >
-              Copy your ID and anyone using the same server can use it to call
-              you and vice versa!
-            </span>
-            <div className="d-flex flex-row gap-3">
-              <div className="d-flex flex-column align-items-center justify-content-center w-100">
+            <div className="flex flex-row gap-32">
+              <div className="flex flex-col items-center justify-center w-full">
                 <div className="video">
                   {stream && (
                     <video
-                      className="rounded-circle"
+                      className="rounded-full"
                       playsInline
                       muted
                       ref={myVideo}
@@ -141,31 +125,27 @@ function VideoCall() {
                     />
                   )}
                 </div>
-                <span className="text-white fw-bold text-lg-center  mb-4">
-                  {caller}
-                </span>
+                <span className="text-white font-bold text-lg mb-4">{caller}</span>
                 <p className="text-white">{me}</p>
               </div>
 
-              <div className="d-flex flex-col align-items-center justify-content-center w-100">
+              <div className="flex flex-col items-center justify-center w-full">
                 {callAccepted && !callEnded ? (
                   <video
-                    className="rounded-circle"
+                    className="rounded-full"
                     playsInline
                     ref={userVideo}
                     autoPlay
                     style={{ width: "300px" }}
                   />
                 ) : (
-                  <div className="d-flex flex-col align-items-center justify-content-center">
+                  <div className="flex flex-col justify-center items-center">
                     <img
                       src="https://w0.peakpx.com/wallpaper/416/423/HD-wallpaper-devil-boy-in-mask-red-hoodie-dark-background-4ef517.jpg"
-                      className="rounded-circle w-[15rem]"
+                      className="rounded-full w-[15rem]"
                       alt="User Avatar"
                     />
-                    <span className="text-white fw-bold text-lg">
-                      {idToCall}
-                    </span>
+                    <span className="text-white font-bold text-lg">{idToCall}</span>
                   </div>
                 )}
               </div>
@@ -177,22 +157,28 @@ function VideoCall() {
                 setIdToCall(e.target.value);
               }}
             />
-            <div>
+                      <div>
               {callAccepted && !callEnded ? (
-                <button className="bt" onClick={leaveCall}>
+                <button className="text-black hover:text-gray-400 mr-6 font-bold bg-white rounded-md m-4 px-2" onClick={leaveCall}>
                   End Call
                 </button>
               ) : (
-                <button className="bt" onClick={() => callUser(idToCall)}>
+                <button
+                  className="text-black hover:text-gray-400 mr-6 font-bold bg-white rounded-md m-4 px-2"
+                  onClick={() => callUser(idToCall)}
+                >
                   Call
                 </button>
               )}
             </div>
             <div className="text-white">
               {receivingCall && !callAccepted ? (
-                <div className="caller d-flex flex-col">
+                <div className="caller flex flex-col">
                   <h1 className="text-white">{caller} is calling...</h1>
-                  <button className="bt" onClick={answerCall}>
+                  <button
+                    className="text-black text-xl hover:text-gray-400 mr-6 font-bold bg-white rounded-md m-4 px-2"
+                    onClick={answerCall}
+                  >
                     Answer
                   </button>
                 </div>
@@ -206,3 +192,4 @@ function VideoCall() {
 }
 
 export default VideoCall;
+
